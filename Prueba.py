@@ -113,5 +113,74 @@ print(cadena)
 #Se puede acceder a un método privado usando: _+nombreclase+nombre del método privado. Ejemplo:
 #objeto._MiClase__metodo_privado()
 
+#Clase:
+class MiPrimeraClaseEnPython:
+    #atributos:
+    atributo = "soy un atributo normal de una clase normal"
+    __atributo_privado = "yo soy un atributo privado"
+
+    def metodo(self):
+        print("Hola, esta es mi primera invocación a un método de una clase")
+        pass
+
+    def __metodo_privado(self):
+        print("Este es un método privado que accede a un atributo privado: "+self.__atributo_privado)
+        pass
+
+
+instancia_clase = MiPrimeraClaseEnPython()
+instancia_clase.metodo()
+print(instancia_clase.atributo)
+
+#Así me salto a la torera los métodos privados:
+instancia_clase._MiPrimeraClaseEnPython__metodo_privado()
+
+
+#así libero una variable:
+del instancia_clase
+#instancia_clase.metodo() esto lanzaría una excepción
+
+
+#Creando una excepción. Clase interna:
+class NumeroNegativoException(Exception):
+    def __init__(self,message):
+        self.message = message
+
+
+class MiClaseAvanzada():
+    numero = 0
+
+    #constructor
+    def __init__(self,numero):
+        self.numero=numero
+
+   # def __new
+    def es_positivo(self):
+        if self.numero >= 0:
+            return True
+        else:
+            return False
+
+    def sumame(self,a_sumar):
+        return self.numero + a_sumar
+
+    def esMenorQueDiez(self):
+        if 0 <= self.numero < 10:
+            return True
+        else:
+            return False
+
+    def fibonacci(self):
+        if self.numero == 1 or self.numero == 2:
+            return 1
+        elif self.numero<=0:
+            try:
+                     raise NumeroNegativoException("No me pases numeros negativos, hombre")
+            except Exception as e:
+                print("¡Pringao! "+e.__str__())
+        else:
+            num_a = MiClaseAvanzada()
+            num_b = MiClaseAvanzada()
+            return num_a.fibonacci() + num_b.fibonacci()
 
 
